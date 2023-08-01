@@ -1,6 +1,6 @@
 {
   "name": "@yusufsalxp/swagger",
-  "version": "7.1.4",
+  "version": "7.1.8",
   "description": "Nest - modern, fast, powerful node.js web framework (@swagger)",
   "author": "Kamil Mysliwiec",
   "license": "MIT",
@@ -21,8 +21,7 @@
     "---manual-tests---": "",
     "start": "nest start",
     "start:dev": "nest start --watch",
-    "start:debug": "nest start --watch --debug",
-    "postinstall": "tsc -p tsconfig.json"
+    "start:debug": "nest start --watch --debug"
   },
   "dependencies": {
     "@automapper/classes": "^8.7.7",

@@ -17,6 +17,4 @@ npm-debug.log
 
 # source
 dist/
-index.js
-index.d.ts
 /sample
