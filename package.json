@@ -21,7 +21,8 @@
     "---manual-tests---": "",
     "start": "nest start",
     "start:dev": "nest start --watch",
-    "start:debug": "nest start --watch --debug"
+    "start:debug": "nest start --watch --debug",
+    "postinstall": "tsc -p tsconfig.json"
   },
   "dependencies": {
     "@automapper/classes": "^8.7.7",
