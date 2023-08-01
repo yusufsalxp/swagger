@@ -24,6 +24,9 @@
     "start:debug": "nest start --watch --debug"
   },
   "dependencies": {
+    "@automapper/classes": "^8.7.7",
+    "@automapper/core": "^8.7.7",
+    "@automapper/nestjs": "^8.7.7",
     "@nestjs/mapped-types": "2.0.2",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",

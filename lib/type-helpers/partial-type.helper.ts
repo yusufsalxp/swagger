@@ -11,7 +11,10 @@ import { ApiProperty } from '../decorators';
 import { MetadataLoader } from '../plugin/metadata-loader';
 import { METADATA_FACTORY_NAME } from '../plugin/plugin-constants';
 import { ModelPropertiesAccessor } from '../services/model-properties-accessor';
-import { clonePluginMetadataFactory } from './mapped-types.utils';
+import {
+  clonePluginMetadataFactory,
+  inheritAutoMapMetadata
+} from './mapped-types.utils';
 
 const modelPropertiesAccessor = new ModelPropertiesAccessor();
 
@@ -25,6 +28,7 @@ export function PartialType<T>(classRef: Type<T>): Type<Partial<T>> {
   }
   inheritValidationMetadata(classRef, PartialTypeClass);
   inheritTransformationMetadata(classRef, PartialTypeClass);
+  inheritAutoMapMetadata(classRef, PartialTypeClass);
 
   function applyFields(fields: string[]) {
     clonePluginMetadataFactory(

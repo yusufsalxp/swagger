@@ -9,7 +9,10 @@ import { DECORATORS } from '../constants';
 import { ApiProperty } from '../decorators';
 import { MetadataLoader } from '../plugin/metadata-loader';
 import { ModelPropertiesAccessor } from '../services/model-properties-accessor';
-import { clonePluginMetadataFactory } from './mapped-types.utils';
+import {
+  clonePluginMetadataFactory,
+  inheritAutoMapMetadata
+} from './mapped-types.utils';
 
 const modelPropertiesAccessor = new ModelPropertiesAccessor();
 
@@ -32,6 +35,7 @@ export function PickType<T, K extends keyof T>(
 
   inheritValidationMetadata(classRef, PickTypeClass, isInheritedPredicate);
   inheritTransformationMetadata(classRef, PickTypeClass, isInheritedPredicate);
+  inheritAutoMapMetadata(classRef, PickTypeClass, isInheritedPredicate);
 
   function applyFields(fields: string[]) {
     clonePluginMetadataFactory(

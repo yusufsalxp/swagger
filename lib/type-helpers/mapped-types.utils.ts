@@ -1,6 +1,11 @@
 import { Type } from '@nestjs/common';
 import { identity } from 'lodash';
 import { METADATA_FACTORY_NAME } from '../plugin/plugin-constants';
+import { AutoMapperLogger, Constructor } from '@automapper/core';
+import {
+  AUTOMAP_PROPERTIES_METADATA_KEY,
+  getMetadataList
+} from '@automapper/classes';
 
 export function clonePluginMetadataFactory(
   target: Type<unknown>,
@@ -39,5 +44,35 @@ export function clonePluginMetadataFactory(
     };
   } else {
     target[METADATA_FACTORY_NAME] = () => targetMetadata;
+  }
+}
+
+export function inheritAutoMapMetadata(
+  parentClass: Constructor,
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  targetClass: Function,
+  isPropertyInherited: (key: string) => boolean = () => true
+) {
+  try {
+    const [parentClassMetadataList] = getMetadataList(parentClass);
+    if (!parentClassMetadataList.length) {
+      return;
+    }
+
+    const [existingMetadataList] = getMetadataList(targetClass as Constructor);
+    Reflect.defineMetadata(
+      AUTOMAP_PROPERTIES_METADATA_KEY,
+      [
+        ...existingMetadataList,
+        ...parentClassMetadataList.filter(([propertyKey]) =>
+          isPropertyInherited(propertyKey)
+        )
+      ],
+      targetClass
+    );
+  } catch (e) {
+    if (AutoMapperLogger.error) {
+      AutoMapperLogger.error(`Error trying to inherit metadata: ${e}`);
+    }
   }
 }
